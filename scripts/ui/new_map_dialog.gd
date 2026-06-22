@@ -153,17 +153,17 @@ func _on_create() -> void:
 	md.created_date = _iso_date_now()
 	md.modified_date = md.created_date
 
-	var floor = FloorData.new()
-	floor.floor_index = 0
-	floor.floor_name = values.floor_name
-	floor.floor_z = 0
+	var fd = FloorData.new()
+	fd.floor_index = 0
+	fd.floor_name = values.floor_name
+	fd.floor_z = 0
 
 	var layer = TerrainLayerData.new()
 	layer.layer_index = 0
 	layer.layer_name = "图层 1"
-	floor.terrain_layers.append(layer)
+	fd.terrain_layers.append(layer)
 
-	md.floors.append(floor)
+	md.floors.append(fd)
 	md.current_floor = 0
 
 	map_created.emit(md)
