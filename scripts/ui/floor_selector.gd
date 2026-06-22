@@ -13,7 +13,7 @@ signal floor_duplicate_requested(index: int)
 signal floor_delete_requested(index: int)
 signal floor_move_up_requested(index: int)
 signal floor_move_down_requested(index: int)
-signal show_adjacent_floors_changed(show: bool, opacity: float)
+signal show_adjacent_floors_changed(p_show: bool, opacity: float)
 
 
 var _scroll_container: ScrollContainer = null

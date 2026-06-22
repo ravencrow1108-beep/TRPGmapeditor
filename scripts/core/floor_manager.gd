@@ -58,13 +58,13 @@ func get_current_floor_index() -> int:
 
 # ---------- Floor CRUD ----------
 
-func add_floor(name: String = "") -> FloorData:
+func add_floor(floor_name: String = "") -> FloorData:
 	if _map_data == null:
 		return null
 
 	var fd = FloorData.new()
 	fd.floor_index = _map_data.floors.size()
-	fd.floor_name = name if not name.is_empty() else "楼层 %d" % (fd.floor_index + 1)
+	fd.floor_name = floor_name if not floor_name.is_empty() else "楼层 %d" % (fd.floor_index + 1)
 	fd.floor_z = fd.floor_index
 
 	var layer = TerrainLayerData.new()
@@ -186,8 +186,8 @@ func remove_stair_connection(connection_id: String) -> void:
 
 # ---------- Adjacent floors ----------
 
-func set_display_adjacent(show: bool, opacity: float = 0.25) -> void:
-	_display_adjacent = show
+func set_display_adjacent(p_show: bool, opacity: float = 0.25) -> void:
+	_display_adjacent = p_show
 	_adjacent_opacity = clampf(opacity, 0.1, 0.5)
 
 

@@ -626,8 +626,8 @@ func _on_floor_move_down(index: int) -> void:
 		_refresh_all_views()
 
 
-func _on_show_adjacent_changed(show: bool, opacity: float) -> void:
-	floor_manager.set_display_adjacent(show, opacity)
+func _on_show_adjacent_changed(p_show: bool, opacity: float) -> void:
+	floor_manager.set_display_adjacent(p_show, opacity)
 
 
 # ---------------------------------------------------------------------------
