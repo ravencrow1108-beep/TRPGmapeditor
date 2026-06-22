@@ -349,16 +349,16 @@ class MoveWallEndpointCommand extends Command:
 
 class AddFloorCommand extends Command:
 	var _map  ## MapData
-	var _floor: FloorData
+	var _new_floor: FloorData
 	var _index: int
 
 	func _init(map_data, floor_data: FloorData) -> void:
 		_map = map_data
-		_floor = floor_data
+		_new_floor = floor_data
 		_index = _map.floors.size()
 
 	func execute() -> void:
-		_map.floors.append(_floor)
+		_map.floors.append(_new_floor)
 		_map.current_floor = _index
 		EventBus.floor_added.emit(_index)
 
@@ -371,18 +371,18 @@ class AddFloorCommand extends Command:
 		EventBus.floor_removed.emit(_index)
 
 	func get_description() -> String:
-		return "Added floor '%s'" % _floor.floor_name
+		return "Added floor '%s'" % _new_floor.floor_name
 
 
 class RemoveFloorCommand extends Command:
 	var _map  ## MapData
-	var _floor: FloorData
+	var _target_floor: FloorData
 	var _index: int
 	var _old_current: int
 
 	func _init(map_data, floor_data: FloorData) -> void:
 		_map = map_data
-		_floor = floor_data
+		_target_floor = floor_data
 		_index = _map.floors.find(floor_data)
 		_old_current = _map.current_floor
 
@@ -395,12 +395,12 @@ class RemoveFloorCommand extends Command:
 		EventBus.floor_removed.emit(_index)
 
 	func undo() -> void:
-		_map.floors.insert(_index, _floor)
+		_map.floors.insert(_index, _target_floor)
 		_map.current_floor = _old_current
 		EventBus.floor_added.emit(_index)
 
 	func get_description() -> String:
-		return "Removed floor '%s'" % _floor.floor_name
+		return "Removed floor '%s'" % _target_floor.floor_name
 
 
 class DuplicateFloorCommand extends Command:
