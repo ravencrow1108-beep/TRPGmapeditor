@@ -54,6 +54,10 @@ enum CoordSystem {
 @export var tilesets: Array = []   ## Stub for TilesetReference
 
 
+# ---------- Stair connections ----------
+@export var stair_connections: Array[StairConnectionData] = []
+
+
 ## Helper: get the active FloorData, or null when floors is empty.
 func get_active_floor() -> FloorData:
 	if floors.is_empty() or current_floor < 0 or current_floor >= floors.size():

@@ -77,6 +77,7 @@ static func _serialize_map_data(md: MapData) -> Dictionary:
 	dict["portals"] = _serialize_portals(md.portals)
 	dict["light_sources"] = _serialize_lights(md.light_sources)
 	dict["vision_tokens"] = _serialize_vision_tokens(md.vision_tokens)
+	dict["stair_connections"] = _serialize_stair_connections(md.stair_connections)
 	return dict
 
 
@@ -255,6 +256,39 @@ static func _serialize_vision_tokens(tokens: Array) -> Array:
 
 
 # ---------------------------------------------------------------------------
+# Stair connections
+# ---------------------------------------------------------------------------
+
+static func _serialize_stair_connections(stairs: Array) -> Array:
+	var result = []
+	for stair in stairs:
+		var d = {}
+		d["connection_id"] = stair.connection_id
+		d["stair_name"] = stair.stair_name
+		d["from_floor"] = stair.from_floor
+		d["from_position"] = [stair.from_position.x, stair.from_position.y]
+		d["to_floor"] = stair.to_floor
+		d["to_position"] = [stair.to_position.x, stair.to_position.y]
+		d["stair_type"] = stair.stair_type
+		d["is_bidirectional"] = stair.is_bidirectional
+		result.append(d)
+	return result
+
+
+static func _deserialize_stair_connection(dict: Dictionary) -> StairConnectionData:
+	var stair = StairConnectionData.new()
+	stair.connection_id = _get_str(dict, "connection_id", "")
+	stair.stair_name = _get_str(dict, "stair_name", "")
+	stair.from_floor = _get_int(dict, "from_floor", 0)
+	stair.from_position = _array_to_vector2i(dict.get("from_position", [0, 0]))
+	stair.to_floor = _get_int(dict, "to_floor", 0)
+	stair.to_position = _array_to_vector2i(dict.get("to_position", [0, 0]))
+	stair.stair_type = _get_int(dict, "stair_type", StairConnectionData.StairType.STAIRS)
+	stair.is_bidirectional = _get_bool(dict, "is_bidirectional", true)
+	return stair
+
+
+# ---------------------------------------------------------------------------
 # Deserialize helpers
 # ---------------------------------------------------------------------------
 
@@ -295,6 +329,11 @@ static func _deserialize_map_data(dict: Dictionary) -> MapData:
 	for t_dict in tokens_data:
 		if t_dict is Dictionary:
 			md.vision_tokens.append(_deserialize_vision_token(t_dict))
+
+	var stairs_data = dict.get("stair_connections", [])
+	for s_dict in stairs_data:
+		if s_dict is Dictionary:
+			md.stair_connections.append(_deserialize_stair_connection(s_dict))
 
 	return md
 

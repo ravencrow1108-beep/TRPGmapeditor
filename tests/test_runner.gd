@@ -46,12 +46,19 @@ func _ready() -> void:
 # ---------- Test registration ----------
 
 func _run_all_tests() -> void:
-	var TestMapData = load("res://tests/unit/test_map_data.gd")
-	if TestMapData == null:
-		push_error("[TestRunner] Could not load test_map_data.gd")
-		return
-	var instance = TestMapData.new()
-	instance.run_tests(self)
+	var test_classes = [
+		"res://tests/unit/test_map_data.gd",
+		"res://tests/unit/test_grid_utils.gd",
+		"res://tests/unit/test_undo_redo.gd",
+		"res://tests/unit/test_floor_manager.gd",
+	]
+	for path in test_classes:
+		var TestClass = load(path)
+		if TestClass == null:
+			push_error("[TestRunner] Could not load %s" % path)
+			continue
+		var instance = TestClass.new()
+		instance.run_tests(self)
 
 
 # ---------- Test API (mirrors GUT for compatibility) ----------
