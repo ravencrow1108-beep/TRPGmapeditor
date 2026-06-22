@@ -108,7 +108,7 @@ func _build_ui() -> void:
 	var left_panel= VBoxContainer.new()
 	left_panel.name = "LeftPanel"
 	left_panel.custom_minimum_size = Vector2(110, 0)
-	left_panel.size_flags_horizontal = SIZE_FILL
+	left_panel.size_flags_horizontal = SIZE_EXPAND_FILL
 	left_panel.size_flags_vertical = SIZE_EXPAND_FILL
 
 	tool_bar = ToolBar.new()
@@ -169,7 +169,7 @@ func _build_ui() -> void:
 	var right_panel= VSplitContainer.new()
 	right_panel.name = "RightPanel"
 	right_panel.custom_minimum_size = Vector2(250, 0)
-	right_panel.size_flags_horizontal = SIZE_FILL
+	right_panel.size_flags_horizontal = SIZE_EXPAND_FILL
 
 	layer_panel = LayerPanel.new()
 	layer_panel.name = "LayerPanel"
@@ -178,7 +178,7 @@ func _build_ui() -> void:
 
 	tile_palette = TilePalette.new()
 	tile_palette.name = "TilePalette"
-	tile_palette.size_flags_vertical = SIZE_FILL
+	tile_palette.size_flags_vertical = SIZE_EXPAND_FILL
 	right_panel.add_child(tile_palette)
 
 	main_container.add_child(right_panel)

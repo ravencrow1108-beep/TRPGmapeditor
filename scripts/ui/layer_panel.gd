@@ -9,7 +9,7 @@ extends VBoxContainer
 
 # ---------- Signals ----------
 signal layer_selected(index: int)
-signal layer_visibility_toggled(index: int, visible: bool)
+signal layer_visibility_toggled(index: int, p_visible: bool)
 signal layer_lock_toggled(index: int, locked: bool)
 signal layer_opacity_changed(index: int, opacity: float)
 signal layer_add_requested()
@@ -20,7 +20,7 @@ signal layer_reorder_requested(from_index: int, to_index: int)
 # ---------- Node refs ----------
 var _layer_list: VBoxContainer = null
 var _opacity_slider: HSlider = null
-var _entries: Array = []
+var _entries: Array[Node] = []
 var _active_layer_index: int = 0
 
 
